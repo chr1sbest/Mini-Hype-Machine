@@ -11,8 +11,8 @@ $(document).ready(function() {
     $('#toast-prompt').remove();  // Remove that annoying yellow box.
     
     // Snag the important stuff so we can build a parser
-    var playing  = document.getElementById('#player-nowplaying');
-    var playlist = document.getElementById('#track-list');
+    var playing  = document.getElementById('player-nowplaying');
+    var playlist = document.getElementById('track-list').querySelectorAll('.section-track');
     var controls = {
         next     : document.getElementById('playerNext'),
         previous : document.getElementById('playerPrev'),
@@ -43,13 +43,13 @@ $(document).ready(function() {
             case 'favorite':
                 controls.favorite.click();  
                 break;
-                
+
         }
 
         // Prep data to shoot back to update the view
         var track = {
             artist : Parser.artist(),
-            title  : Parser.track(),
+            title  : Parser.title(),
             url    : Parser.url(),
             id     : Parser.trackId()
         };

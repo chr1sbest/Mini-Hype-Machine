@@ -6,7 +6,7 @@ Parser.prototype.initialize = function( controls, playing, tracks ) {
 	this.controls = controls;
 	this.playing  = playing;
 	this.tracks   = tracks;
-
+	
 };
 
 // Retrieve the current playstate.
@@ -45,34 +45,33 @@ Parser.prototype.favoriteState = function() {
 
 // Retrieve the current artist
 Parser.prototype.artist = function() {
-	return this.player.querySelectorAll('a')[3].innerText;
+	return this.playing.querySelectorAll('a')[3].innerText;
 };
 
 // Retrieve the current track title
 Parser.prototype.title = function() {
-	return this.player.querySelectorAll('a')[4].innerText;
+	return this.playing.querySelectorAll('a')[4].innerText;
 };
 
 // Retrieve the blog url for the current track
 Parser.prototype.url = function() {
-	return this.player.querySelectorAll('.read')[0].getAttribute('href');
+	return this.playing.querySelectorAll('.read')[0].getAttribute('href');
 };
 
 // Retrieve the id for this track
 Parser.prototype.trackId = function() {
-	return this.player.querySelectorAll('a')[4].getAttribute('href').split('/')[2];
+	return this.playing.querySelectorAll('a')[4].getAttribute('href').split('/')[2];
 };
 
 // Retrieve the active playlist from the DOM
 Parser.prototype.playlist = function() {
 
-	var list     = this.tracks.querySelectorAll('.section-track');
 	var playlist = []
 	  , section  = {}
 	  , that;
 
-	for ( var i = 0; i < list.length; i++ ) {
-		that = list[i];
+	for ( var i = 0; i < this.tracks.length; i++ ) {
+		that = this.tracks[i];
 
 		section.artist = that.querySelector('.section-player .track_name .artist').innerText;
 		section.title  = that.querySelector('.section-player .track_name .track').innerText;
@@ -80,6 +79,6 @@ Parser.prototype.playlist = function() {
 
 		playlist.push(section);
 	}
-
+	console.log(playlist);
 	return playlist;
 };
