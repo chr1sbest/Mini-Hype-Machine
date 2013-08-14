@@ -10,6 +10,7 @@ $(document).ready(function() {
     
     $('#toast-prompt').remove();  // Remove that annoying yellow box.
     
+    // Snag the important stuff so we can build a parser
     var playing  = document.getElementById('#player-nowplaying');
     var playlist = document.getElementById('#track-list');
     var controls = {
@@ -19,8 +20,10 @@ $(document).ready(function() {
         favorite : document.getElementById('playerFav')
     };
 
+    // Initialize the parser so it can get datas and things.
     Parser.initialize( controls, playing, playlist );
 
+    // Listen up!
     chrome.extension.onMessage.addListener( function( request, sender, sendResponse ) {
 
         switch ( request.action ) {
@@ -40,6 +43,7 @@ $(document).ready(function() {
             case 'favorite':
                 controls.favorite.click();  
                 break;
+                
         }
 
         // Prep data to shoot back to update the view

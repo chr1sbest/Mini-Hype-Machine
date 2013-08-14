@@ -1,5 +1,6 @@
 function Parser() {};
 
+// Initialize properties
 Parser.prototype.initialize = function( controls, playing, tracks ) {
 
 	this.controls = controls;
@@ -8,6 +9,7 @@ Parser.prototype.initialize = function( controls, playing, tracks ) {
 
 };
 
+// Retrieve the current playstate.
 Parser.prototype.playState = function() {
 	
 	var classes = this.controls.play.getAttribute('class').split(' ');
@@ -24,6 +26,7 @@ Parser.prototype.playState = function() {
 	return 'play';
 };
 
+// Retrieve the current favorite state.
 Parser.prototype.favoriteState = function() {
 	
 	var classes = this.controls.favorite.getAttribute('class').split(' ');
@@ -40,22 +43,27 @@ Parser.prototype.favoriteState = function() {
 	return 'fav-off';
 };
 
+// Retrieve the current artist
 Parser.prototype.artist = function() {
 	return this.player.querySelectorAll('a')[3].innerText;
 };
 
+// Retrieve the current track title
 Parser.prototype.title = function() {
 	return this.player.querySelectorAll('a')[4].innerText;
 };
 
+// Retrieve the blog url for the current track
 Parser.prototype.url = function() {
 	return this.player.querySelectorAll('.read')[0].getAttribute('href');
 };
 
+// Retrieve the id for this track
 Parser.prototype.trackId = function() {
 	return this.player.querySelectorAll('a')[4].getAttribute('href').split('/')[2];
 };
 
+// Retrieve the active playlist from the DOM
 Parser.prototype.playlist = function() {
 
 	var list     = this.tracks.querySelectorAll('.section-track');
@@ -74,4 +82,4 @@ Parser.prototype.playlist = function() {
 	}
 
 	return playlist;
-}
+};
