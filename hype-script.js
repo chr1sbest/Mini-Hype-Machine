@@ -7,7 +7,11 @@ chrome.extension.sendMessage( { hype: 'loaded' }, function(response) {
 });
 
 $(document).ready(function() {
-    $('#toast-prompt').remove();
+    
+    $('#toast-prompt').remove();  // Remove that annoying yellow box.
+    
+    var playing  = document.getElementById('#player-nowplaying');
+    var playlist = document.getElementById('#track-list');
     var controls = {
         next     : document.getElementById('playerNext'),
         previous : document.getElementById('playerPrev'),
@@ -15,7 +19,7 @@ $(document).ready(function() {
         favorite : document.getElementById('playerFav')
     };
 
-    var $playing = $('#player-nowplaying');
+    Parser.initialize( controls, playing, playlist );
 
     chrome.extension.onMessage.addListener( function( request, sender, sendResponse ) {
 
@@ -40,20 +44,23 @@ $(document).ready(function() {
 
         // Prep data to shoot back to update the view
         var track = {
-            artist : $playing.find('a')[3].innerText,
-            title  : $playing.find('a')[4].innerText,
-            url    : $playing.find('.read').attr('href'),
-            id     : $playing.find('a')[4].getAttribute('href').split('/')[2]
+            artist : Parser.artist(),
+            title  : Parser.track(),
+            url    : Parser.url(),
+            id     : Parser.trackId()
         };
 
         var state = {
-            play     : Parser.playState( controls.play ),
-            favorite : Parser.favoriteState( controls.favorite )
+            play     : Parser.playState(),
+            favorite : Parser.favoriteState()
         }
 
+        var playlist = Parser.playlist();
+
         var response = {
-            track  : track,
-            state  : state
+            track    : track,
+            state    : state,
+            playlist : playlist
         };
 
         sendResponse( response );
