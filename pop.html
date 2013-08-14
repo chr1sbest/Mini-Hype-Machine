@@ -70,7 +70,7 @@
       color: #0063DC;
       text-decoration: underline;
     }
-    #the_blurb {
+    #blurb {
       padding: 5px 8px;
     }
     a {
@@ -85,7 +85,7 @@
     #track a:hover {
       text-decoration: underline;
     }
-    #goPrev, #goPlay, #goNext, #goFav {
+    #previous, #play, #next, #favorite {
       border-left: 1px solid #272727;
       cursor: pointer;
       display: block;
@@ -95,21 +95,21 @@
       top: 0;
       width: 33px;
     }
-    #goPrev, #goNext {
+    #previous, #next {
       background: url(images/player-controls-new.png) no-repeat;
     }
-    #goPrev {
+    #previous {
       background-position: -64px 0px;
       border-left: 1px solid #272727;
     }
-    #goPrev:hover {
+    #previous:hover {
       background-position: -64px -32px;
     }
-    #goNext {
+    #next {
       background-position: -96px 0px;
       border-right: 1px solid #272727;
     }
-    #goNext:hover {
+    #next:hover {
       background-position: -96px -32px;
     }
     .play, .pause, .play:hover, .pause:hover {
@@ -210,24 +210,26 @@
       background-color: #fff;
     }
     </style>
-    <script type='text/javascript' src='jquery-1.9.1.min.js'></script>
-    <script type='text/javascript' src='pop.js'></script>
+
   </head>
   <body>
+    
     <div id='controlsDiv'>
       <a href='http://www.hypem.com/' target='_blank' id='logo'></a>
       <div id='controls'>
-        <a id='goPrev' href='#'></a>
-        <a id='goPlay' class='play' href='#'></a>
-        <a id='goFav' class='fav-off' href='#'></a>
-        <a id='goNext' href='#'></a>
+        <a id='previous' href='#'></a>
+        <a id='play' class='play' href='#'></a>
+        <a id='favorite' class='fav-off' href='#'></a>
+        <a id='next' href='#'></a>
       </div>
     </div>
+    
     <div id='track'>
       <a href='http://www.hypem.com/' target='_blank'>No Hype Machine tab found. Open one!</a>
     </div>
+    
     <div id='content'>
-      <div id='the_blurb'>
+      <div id='blurb'>
       Nothing to see here! <a href='http://www.hypem.com/' target='_blank'>Load up a Hype Machine tab!</a>
       </div>
       <div id='share_buy'>
@@ -239,5 +241,9 @@
       <!-- Begin playlist items -->
       <div id='playlist'></div>
     </div>
+
+    <script type='text/javascript' src='jquery.min.js'></script>
+    <script type='text/javascript' src='mini.js'></script>
+    <script type='text/javascript' src='pop.js'></script>
   </body>
 </html>
