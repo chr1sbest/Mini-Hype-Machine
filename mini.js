@@ -49,17 +49,16 @@ Mini.prototype.update = function( data ) {
 
 	this.player.track.innerHTML = '<a href="http://www.hypem.com/artist/' + data.track.artist + '/" target="_blank">' + data.track.artist + '</a> - '+
 								  '<a href="http://www.hypem.com/track/' + data.track.id + '/" target="_blank">' + data.track.title + '</a>';
-					console.log(data.playlist);
+
 	this.appendPlaylist( data.playlist );
 };
 
 Mini.prototype.appendPlaylist = function( playlist ) {
     var html  = ''
-      , color = 'white'
-      , that;
+      , color = 'white';
 
     for ( var i = 0; i < playlist.length; i++ ) {
-    	that = playlist[i];
+    	var that = playlist[i];
 
     	html += '<div class="playlist-item ' + color + '">';
     	html += '<a id="' + that.button + '" class="playlist-control ' + that.state + '" href="#"></a>';

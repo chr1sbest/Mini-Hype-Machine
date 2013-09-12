@@ -20,7 +20,7 @@ $(document).ready(function() {
         previous : document.getElementById('playerPrev'),
         play     : document.getElementById('playerPlay'),
         favorite : document.getElementById('playerFav')
-    };  
+    };
 
     // Grab the playlist elements which are a little trickier.
     var interval = setInterval(function() {

@@ -74,6 +74,7 @@ Parser.prototype.playlist = function() {
 		// to mess with me. That's cool though. We'll just catch the null value and
 		// not push it into our playlist.
 		try {
+			section.id     = that.getAttribute('data-itemid');
 			section.artist = that.querySelector('.track_name .artist').innerText;
 			section.title  = that.querySelector('.track_name .track').innerText;
 			section.button = that.querySelector('.tools .playdiv .play-ctrl').getAttribute('id');
@@ -87,7 +88,7 @@ Parser.prototype.playlist = function() {
 };
 
 Parser.prototype.listItemState = function( id ) {
-	var classes = document.getElementById( id ).getAttribute('class');
+	var classes = document.getElementById( id ).getAttribute('class').split(' ');
 
 	for (var i = 0; i < classes.length; i++ ) {
 
