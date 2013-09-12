@@ -8,7 +8,8 @@ chrome.extension.sendMessage( { hype: 'loaded' }, function(response) {
 
 $(document).ready(function() {
 
-    $('#toast-prompt').remove();  // Remove that annoying yellow box.
+    // Remove that annoying yellow box that gets in the way of inspecting the player.
+    $('#toast-prompt').remove();
     
     // Snag the important stuff so we can build a parser
     var playlist;
@@ -58,6 +59,10 @@ $(document).ready(function() {
             case 'favorite':
                 controls.favorite.click();  
                 break;
+
+            case 'change':
+                document.getElementById( request.id ).click();
+                break;  
 
         }
 

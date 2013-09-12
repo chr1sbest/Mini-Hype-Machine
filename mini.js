@@ -14,21 +14,20 @@ Mini.prototype.bindEvents = function( controls ) {
 	var that = this;
 
 	controls.next.onclick = function() {
-		that.remoteClick('next');
+		that.remoteClick({ action: 'next' });
 	};
 
 	controls.previous.onclick = function() {
-		that.remoteClick('previous');
+		that.remoteClick({ action: 'previous'});
 	};
 
 	controls.play.onclick = function() {
-		that.remoteClick('play');
+		that.remoteClick({ action: 'play' });
 	};
 
 	controls.favorite.onclick = function() {
-		that.remoteClick('favorite');
+		that.remoteClick({ action : 'favorite' });
 	};
-
 };
 
 // Send a message to the Hype Machine tab and tell it to act.
@@ -36,7 +35,7 @@ Mini.prototype.remoteClick = function( which ) {
 
 	var that = this;
 
-	chrome.tabs.sendMessage( background.tab, { action: which }, function( response ) {
+	chrome.tabs.sendMessage( background.tab, which, function( response ) {
 		that.update( response );	
 	});
 
@@ -50,7 +49,8 @@ Mini.prototype.update = function( data ) {
 	this.player.track.innerHTML = '<a href="http://www.hypem.com/artist/' + data.track.artist + '/" target="_blank">' + data.track.artist + '</a> - '+
 								  '<a href="http://www.hypem.com/track/' + data.track.id + '/" target="_blank">' + data.track.title + '</a>';
 
-	this.appendPlaylist( data.playlist );
+	this.appendPlaylist( data.playlist )
+		.bindPlaylistEvents();
 };
 
 Mini.prototype.appendPlaylist = function( playlist ) {
@@ -73,6 +73,20 @@ Mini.prototype.appendPlaylist = function( playlist ) {
     return this;
 };
 
+Mini.prototype.bindPlaylistEvents = function() {
+	
+	var that = this;
+	var playlist = document.getElementsByClassName('playlist-control');
+
+	for ( var i = 0; i < playlist.length - 1; i++ ) {
+		
+		var trackId = playlist[i].getAttribute('id');
+
+		document.getElementById(trackId).onclick = function() {
+			that.remoteClick({ action: 'change', id: this.getAttribute('id') });
+		};
+	}
+}
 
 
 
