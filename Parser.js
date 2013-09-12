@@ -65,13 +65,11 @@ Parser.prototype.trackId = function() {
 // Retrieve the active playlist from the DOM
 Parser.prototype.playlist = function() {
 
-	var playlist = []
-	  , section  = {}
-	  , that;
+	var playlist = [];
 
 	for ( var i = 0; i < this.tracks.length; i++ ) {
-		that = this.tracks[i].querySelector('.section-player');
-
+		var that = this.tracks[i].querySelector('.section-player');
+		var section = {};
 		// Sometimes there's a section without a button because Hype Machine likes
 		// to mess with me. That's cool though. We'll just catch the null value and
 		// not push it into our playlist.

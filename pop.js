@@ -20,7 +20,6 @@ window.onload = function () {
 	Mini.initialize( controls, player );
 
 	chrome.tabs.sendMessage( background.tab, { action: 'update' }, function( response ) {
-		console.log(response);
 		Mini.update( response );	
 	});
 	
