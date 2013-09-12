@@ -14,14 +14,14 @@ window.onload = function () {
 		track   : document.getElementById('track'),
 		content : document.getElementById('blurb'),
 		list    : document.getElementById('playlist')
-	}
+	};
 	
 	// Initialize the popup player
 	Mini.initialize( controls, player );
 
 	chrome.tabs.sendMessage( background.tab, { action: 'update' }, function( response ) {
+		console.log(response);
 		Mini.update( response );	
 	});
 	
-
 };

@@ -14,7 +14,6 @@ Mini.prototype.bindEvents = function( controls ) {
 	var that = this;
 
 	controls.next.onclick = function() {
-		console.log('clicked next!');
 		that.remoteClick('next');
 	};
 
@@ -50,9 +49,30 @@ Mini.prototype.update = function( data ) {
 
 	this.player.track.innerHTML = '<a href="http://www.hypem.com/artist/' + data.track.artist + '/" target="_blank">' + data.track.artist + '</a> - '+
 								  '<a href="http://www.hypem.com/track/' + data.track.id + '/" target="_blank">' + data.track.title + '</a>';
-
+					console.log(data.playlist);
+	this.appendPlaylist( data.playlist );
 };
 
+Mini.prototype.appendPlaylist = function( playlist ) {
+    var html  = ''
+      , color = 'white'
+      , that;
+
+    for ( var i = 0; i < playlist.length; i++ ) {
+    	that = playlist[i];
+
+    	html += '<div class="playlist-item ' + color + '">';
+    	html += '<a id="' + that.button + '" class="playlist-control ' + that.state + '" href="#"></a>';
+    	html += that.artist + ' - ' + that.title;
+    	html += '</div>';
+
+    	color = ( color == 'white' ) ? '' : 'white';
+    }
+
+    this.player.list.innerHTML = html;
+
+    return this;
+};
 
 
 

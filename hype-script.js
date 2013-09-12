@@ -7,25 +7,40 @@ chrome.extension.sendMessage( { hype: 'loaded' }, function(response) {
 });
 
 $(document).ready(function() {
-    
+
     $('#toast-prompt').remove();  // Remove that annoying yellow box.
     
     // Snag the important stuff so we can build a parser
+    var playlist;
+    
     var playing  = document.getElementById('player-nowplaying');
-    var playlist = document.getElementById('track-list').querySelectorAll('.section-track');
+    
     var controls = {
         next     : document.getElementById('playerNext'),
         previous : document.getElementById('playerPrev'),
         play     : document.getElementById('playerPlay'),
         favorite : document.getElementById('playerFav')
-    };
+    };  
 
-    // Initialize the parser so it can get datas and things.
-    Parser.initialize( controls, playing, playlist );
+    // Grab the playlist elements which are a little trickier.
+    var interval = setInterval(function() {
+
+      try {
+        playlist = document.getElementById('track-list').querySelectorAll('.section-track');
+      } catch(e) {}
+
+      // If we got the playlist, then let's clear this timeout and move on with our lives.
+      if ( playlist !== undefined ) {
+        // Initialize the parser so it can get datas and things.
+        Parser.initialize( controls, playing, playlist );
+        clearInterval(interval);
+      }
+
+    }, 100);
 
     // Listen up!
     chrome.extension.onMessage.addListener( function( request, sender, sendResponse ) {
-
+        console.log('[MHM DEBUG] Received message to perform action ' + request.action);
         switch ( request.action ) {
 
             case 'next':

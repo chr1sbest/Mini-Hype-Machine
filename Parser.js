@@ -6,7 +6,6 @@ Parser.prototype.initialize = function( controls, playing, tracks ) {
 	this.controls = controls;
 	this.playing  = playing;
 	this.tracks   = tracks;
-	
 };
 
 // Retrieve the current playstate.
@@ -71,14 +70,35 @@ Parser.prototype.playlist = function() {
 	  , that;
 
 	for ( var i = 0; i < this.tracks.length; i++ ) {
-		that = this.tracks[i];
+		that = this.tracks[i].querySelector('.section-player');
 
-		section.artist = that.querySelector('.section-player .track_name .artist').innerText;
-		section.title  = that.querySelector('.section-player .track_name .track').innerText;
-		section.button = that.querySelector('.section-player .tools .playdiv .play-ctrl').getAttribute('id');
+		// Sometimes there's a section without a button because Hype Machine likes
+		// to mess with me. That's cool though. We'll just catch the null value and
+		// not push it into our playlist.
+		try {
+			section.artist = that.querySelector('.track_name .artist').innerText;
+			section.title  = that.querySelector('.track_name .track').innerText;
+			section.button = that.querySelector('.tools .playdiv .play-ctrl').getAttribute('id');
+			section.state  = this.listItemState( section.button );
 
-		playlist.push(section);
+			playlist.push(section);
+		} catch(e) {}
 	}
-	console.log(playlist);
+
 	return playlist;
+};
+
+Parser.prototype.listItemState = function( id ) {
+	var classes = document.getElementById( id ).getAttribute('class');
+
+	for (var i = 0; i < classes.length; i++ ) {
+
+		if ( classes[i] == 'play' || classes[i] == 'pause' ) {
+			return classes[i];
+		}
+
+	}
+
+	// Default
+	return 'play';
 };
