@@ -1,7 +1,6 @@
 function Mini() {};
 
-Mini.prototype.initialize = function( controls, player ) {
-
+Mini.prototype.initialize = function(controls, player) {
 	this.controls = controls;
 	this.player   = player;
 
@@ -9,8 +8,7 @@ Mini.prototype.initialize = function( controls, player ) {
 }
 
 // Bind the click events for the pop up controls
-Mini.prototype.bindEvents = function( controls ) {
-	
+Mini.prototype.bindEvents = function(controls) {
 	var that = this;
 
 	controls.next.onclick = function() {
@@ -31,17 +29,16 @@ Mini.prototype.bindEvents = function( controls ) {
 };
 
 // Send a message to the Hype Machine tab and tell it to act.
-Mini.prototype.remoteClick = function( which ) {
-
+Mini.prototype.remoteClick = function(which) {
 	var that = this;
 
 	chrome.tabs.sendMessage( background.tab, which, function( response ) {
-		that.update( response );	
+		that.update( response );
 	});
 
 };
 
-Mini.prototype.update = function( data ) {
+Mini.prototype.update = function(data) {
 
 	this.controls.play.setAttribute( 'class', data.state.play );
 	this.controls.favorite.setAttribute( 'class', data.state.favorite );
@@ -53,7 +50,7 @@ Mini.prototype.update = function( data ) {
 		.bindPlaylistEvents();
 };
 
-Mini.prototype.appendPlaylist = function( playlist ) {
+Mini.prototype.appendPlaylist = function(playlist) {
     var html  = ''
       , color = 'white';
 
@@ -74,12 +71,10 @@ Mini.prototype.appendPlaylist = function( playlist ) {
 };
 
 Mini.prototype.bindPlaylistEvents = function() {
-	
 	var that = this;
 	var playlist = document.getElementsByClassName('playlist-control');
 
 	for ( var i = 0; i < playlist.length - 1; i++ ) {
-		
 		var trackId = playlist[i].getAttribute('id');
 
 		document.getElementById(trackId).onclick = function() {
@@ -87,13 +82,3 @@ Mini.prototype.bindPlaylistEvents = function() {
 		};
 	}
 }
-
-
-
-
-
-
-
-
-
-

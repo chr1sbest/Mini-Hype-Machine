@@ -1,8 +1,7 @@
 function Parser() {};
 
 // Initialize properties
-Parser.prototype.initialize = function( controls, playing, tracks ) {
-
+Parser.prototype.initialize = function(controls, playing, tracks) {
 	this.controls = controls;
 	this.playing  = playing;
 	this.tracks   = tracks;
@@ -10,7 +9,7 @@ Parser.prototype.initialize = function( controls, playing, tracks ) {
 
 // Retrieve the current playstate.
 Parser.prototype.playState = function() {
-	
+
 	var classes = this.controls.play.getAttribute('class').split(' ');
 
 	for (var i = 0; i < classes.length; i++ ) {
@@ -27,15 +26,13 @@ Parser.prototype.playState = function() {
 
 // Retrieve the current favorite state.
 Parser.prototype.favoriteState = function() {
-	
+
 	var classes = this.controls.favorite.getAttribute('class').split(' ');
 
-	for (var i = 0; i < classes.length; i++ ) {
-
-		if ( classes[i] == 'fav-off' || classes[i] == 'fav-on' ) {
+	for (var i = 0; i < classes.length; i++) {
+		if ( classes[i] === 'fav-off' || classes[i] === 'fav-on' ) {
 			return classes[i];
 		}
-
 	}
 
 	// Default
@@ -44,22 +41,22 @@ Parser.prototype.favoriteState = function() {
 
 // Retrieve the current artist
 Parser.prototype.artist = function() {
-	return this.playing.querySelectorAll('a')[3].innerText;
+	return this.playing.querySelectorAll('a')[0].innerText;
 };
 
 // Retrieve the current track title
 Parser.prototype.title = function() {
-	return this.playing.querySelectorAll('a')[4].innerText;
+	return this.playing.querySelectorAll('a')[1].innerText;
 };
 
 // Retrieve the blog url for the current track
 Parser.prototype.url = function() {
-	return this.playing.querySelectorAll('.read')[0].getAttribute('href');
+	return this.playing.querySelectorAll('.read-post')[0].getAttribute('href');
 };
 
 // Retrieve the id for this track
 Parser.prototype.trackId = function() {
-	return this.playing.querySelectorAll('a')[4].getAttribute('href').split('/')[2];
+	return this.playing.querySelectorAll('a')[1].getAttribute('href').split('/')[2];
 };
 
 // Retrieve the active playlist from the DOM
@@ -87,17 +84,20 @@ Parser.prototype.playlist = function() {
 	return playlist;
 };
 
-Parser.prototype.listItemState = function( id ) {
+Parser.prototype.listItemState = function(id) {
 	var classes = document.getElementById( id ).getAttribute('class').split(' ');
 
 	for (var i = 0; i < classes.length; i++ ) {
-
 		if ( classes[i] == 'play' || classes[i] == 'pause' ) {
 			return classes[i];
 		}
-
 	}
 
 	// Default
 	return 'play';
+};
+
+// Update the tracks property
+Parser.prototype.setTracks = function(tracks) {
+	this.tracks = tracks;
 };

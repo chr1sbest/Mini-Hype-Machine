@@ -175,45 +175,43 @@
       height: auto;
       display: inline;
     }
-    #share_buy {
-      display:none;
+    #share-buy {
+      /*display:none;*/
       padding:5px 8px;
       clear:both;
       background-color:#fff;
       font-size:12px;
       height:15px;
     }
-    #share_buy a {
+    #share-buy a {
       float:right;
       width: 15px;
       height: 15px;
       margin: 0px 1px;
+      background: none;
+      border: none;
     }
-    #share_buy a.read-more {
-      float:left;
-      width:auto;
-      margin:0px;
+    #share-buy a.zocial {
+      margin: -5px 1px;
+      color: #000;
     }
-    #share_buy a.facebook {
-      background: url('images/facebook.png') no-repeat 0px 0px;
-      background-size:15px;
+    #share-buy
+    #read-more {
+      float: left !important;
+      width: auto !important;
+      margin: 0px !important;
     }
-    #share_buy a.twitter {
-      background: url('images/twitter.png') no-repeat 0px 0px;
-      background-size:15px;
-    }
-    #share_buy a.amazon {
-      background: url('images/amazon.png') no-repeat 0px 0px;
-      background-size:15px;
+    .zocial:before {
+      border: none !important;
     }
     .white {
       background-color: #fff;
     }
     </style>
-
+    <link rel="stylesheet" href="zocial.css">
   </head>
   <body>
-    
+
     <div id='controlsDiv'>
       <a href='http://www.hypem.com/' target='_blank' id='logo'></a>
       <div id='controls'>
@@ -223,17 +221,17 @@
         <a id='next' href='#'></a>
       </div>
     </div>
-    
+
     <div id='track'>
       <a href='http://www.hypem.com/' target='_blank'>No Hype Machine tab found. Open one!</a>
     </div>
-    
+
     <div id='content'>
-      <div id='share_buy'>
-        <a class='read-more' target='_blank'>Read Post »</a>
-        <a class='facebook' href='#' target='_blank'></a>
-        <a class='twitter' href='#' target='_blank'></a>
-        <a class='amazon' href='#' target='_blank'></a>
+      <div id='share-buy'>
+        <a id='read-more' target='_blank'>Read Post »</a>
+        <a class='zocial facebook' href='#' target='_blank'></a>
+        <a class='zocial twitter' href='#' target='_blank'></a>
+        <a class='zocial amazon' href='#' target='_blank'></a>
       </div>
       <!-- Begin playlist items -->
       <div id='playlist'></div>

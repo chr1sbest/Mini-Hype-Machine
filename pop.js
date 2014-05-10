@@ -2,7 +2,6 @@ var Mini 	   = new Mini()
   , background = chrome.extension.getBackgroundPage();
 
 window.onload = function () {
-
 	var controls = {
 		next     : document.getElementById('next'),
 		previous : document.getElementById('previous'),
@@ -15,12 +14,15 @@ window.onload = function () {
 		content : document.getElementById('blurb'),
 		list    : document.getElementById('playlist')
 	};
-	
+
+	var meta = {
+		read: document.getElementById('read-more')
+	};
+
 	// Initialize the popup player
-	Mini.initialize( controls, player );
+	Mini.initialize(controls, player);
 
 	chrome.tabs.sendMessage( background.tab, { action: 'update' }, function( response ) {
-		Mini.update( response );	
+		Mini.update( response );
 	});
-	
 };
